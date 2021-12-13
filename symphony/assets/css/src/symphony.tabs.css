@@ -1,0 +1,127 @@
+/**
+ * Tabs used to toggle content areas.
+ *
+ * @since Symphony 2.3
+ */
+
+ul.tabs {
+	position: relative;
+	top: 0.1rem;
+	clear: both;
+	height: 2.3rem;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	z-index: 10;
+}
+
+ul.tabs li {
+	display: block;
+	position: relative;
+	float: left;
+	box-sizing: border-box;
+	height: 2.4rem;
+	margin: 0 0.3rem 0 0;
+	padding: 0.4rem 1rem 0;
+	color: rgba(0, 0, 0, 0.5);
+	list-style-type: none;
+	border: 0.1rem solid rgba(0, 0, 0, 0.1);
+	border-bottom-color: #d5d5d0;
+	border-radius: 0.4rem 0.4rem 0 0;
+	background: #fafafa;
+	cursor: pointer;
+	cursor: pointer;
+}
+
+ul.tabs li:hover {
+	color: rgba(0, 0, 0, 0.65);
+	border: 0.1rem solid rgba(0, 0, 0, 0.2);
+	border-bottom-color: #c4c4c4;
+	background: #f5f5f5;
+}
+
+ul.tabs .selected,
+ul.tabs .invalid.selected,
+ul.tabs .invalid.selected:hover {
+	color: rgba(0, 0, 0, 0.8);
+	border: 0.1rem solid rgba(0, 0, 0, 0.2);
+	border-bottom-color: #fff;
+	background: #fff;
+	text-shadow: none;
+	z-index: 1000;
+}
+
+ul.tabs .selected:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: -0.4rem;
+	bottom: -0.1rem;
+	width: 0.3rem;
+	height: 0.3rem;
+	border: none;
+	border-right: 0.1rem solid #ccc;
+	border-bottom: 0.1rem solid #ccc;
+	border-radius: 0 0 0.2rem 0;
+}
+
+ul.tabs .selected:after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: -0.4rem;
+	bottom: -0.1rem;
+	width: 0.3rem;
+	height: 0.3rem;
+	border: none;
+	border-bottom: 0.1rem solid #ccc;
+	border-left: 0.1rem solid #ccc;
+	border-radius: 0 0 0 0.2rem;
+}
+
+/* Destructor */
+
+ul.tabs a.destructor,
+ul.tabs .selected.invalid a.destructor {
+	margin: 0 -0.4rem 0 0;
+	padding: 0 0 0 0.5rem;
+	color: rgba(0, 0, 0, 0.15);
+	line-height: 1;
+	border-bottom: none;
+	text-shadow: 0.1rem 0.1rem #fff;
+}
+
+ul.tabs :hover a.destructor,
+ul.tabs .selected.invalid:hover a.destructor {
+	color: rgba(0, 0, 0, 0.2);
+}
+
+ul.tabs a.destructor:hover,
+ul.tabs .selected a.destructor:hover {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+/* Invalid tabs */
+
+ul.tabs .invalid {
+	color: rgba(255, 255, 255, 0.7);
+	border-color: #b21;
+	background: #d42;
+	box-shadow: none;
+	text-shadow: 0.1rem 0.1rem 0.1rem rgba(187, 34, 17, 1);
+}
+
+ul.tabs .invalid:hover {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+ul.tabs .invalid a.destructor {
+	color: #fb9;
+	text-shadow: none;
+}
+
+/* Tabs in context area */
+
+#context ul.tabs {
+	margin: 2rem 0 0 -1.1rem;
+}

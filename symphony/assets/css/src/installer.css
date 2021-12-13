@@ -1,0 +1,202 @@
+/**
+ * Symphony Installer
+ */
+
+body {
+	padding: 8rem 10rem 5rem 5rem;
+	cursor: default;
+}
+
+form {
+	position: relative;
+	width: 45rem;
+	margin: 0 auto;
+	padding-left: 20rem;
+}
+
+/* Sidebar */
+
+h1 {
+	position: fixed;
+	width: 15rem;
+	margin-left: -20rem;
+	padding: 0 0 1.8rem 0;
+	font-size: 1.25rem;
+	font-weight: normal;
+	text-align: right;
+}
+
+h1 em {
+	display: block;
+	margin-top: 0.5rem;
+	color: rgba(0, 0, 0, 0.4);
+	font-size: 1rem;
+	font-style: normal;
+	text-align: right;
+}
+
+h1 + ul {
+	position: fixed;
+	width: 15rem;
+	margin: 5.5rem 0 0 -20rem;
+	padding: 0 0 1.8rem 0;
+	color: rgba(0, 0, 0, 0.4);
+	font-weight: normal;
+	font-style: normal;
+	text-align: right;
+	text-align: right;
+	list-style: none;
+}
+
+h1 + ul li.selected a {
+	color: #000;
+	text-decoration: none;
+}
+
+h1 + ul li.more {
+	margin-top: 1.2rem;
+}
+
+h1 + ul li.more a {
+	display: block;
+	width: 15rem;
+	color: rgba(0, 0, 0, 0.4);
+	text-decoration: none;
+}
+
+h1 + ul li.more a:hover {
+	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.3);
+}
+
+/* Multiple errors */
+
+.invalid ul {
+	position: static;
+	width: auto;
+	margin: 0 0 0 1.3rem;
+	padding: 0;
+	text-align: left;
+}
+
+.invalid li {
+	color: rgba(255, 255, 255, 0.7);
+	list-style-type: square;
+}
+
+.invalid li + li {
+	margin-top: 1rem;
+}
+
+/* Content */
+
+h2 {
+	margin-right: 5rem;
+	margin-bottom: 1rem;
+}
+
+fieldset + h2,
+p + h2 {
+	margin-top: 5rem;
+}
+
+fieldset {
+	margin: 5rem 0 0;
+	padding: 1rem 0 0;
+}
+
+fieldset legend {
+	color: #222;
+	font-size: 127.28%;
+	font-weight: normal;
+}
+
+fieldset > .columns:last-child .column {
+	margin-bottom: 0;
+}
+
+fieldset fieldset {
+	margin: 0.5rem 0 0 !important;
+	padding-top: 3rem !important;
+}
+
+fieldset label + fieldset {
+	margin-top: 2rem !important;
+}
+
+fieldset fieldset legend {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	color: rgba(0, 0, 0, 0.4);
+	font-size: 1rem;
+}
+
+.option {
+	margin: 0 0 0 2rem;
+}
+
+.option input {
+	float: left;
+	min-width: 0;
+	margin-left: -2rem;
+}
+
+.option + p {
+	margin: 0.5rem 3rem 0 2rem;
+	color: rgba(0, 0, 0, 0.4);
+}
+
+.submit {
+	padding-bottom: 5rem;
+	text-align: right;
+}
+
+dt {
+	margin-bottom: 0.5rem;
+	color: rgba(0, 0, 0, 0.4);
+	font-weight: normal;
+}
+
+ul {
+	margin-left: 0;
+}
+
+dd,
+ul li {
+	position: relative;
+	margin: 0 0 1.5rem 1rem;
+	font-weight: normal;
+}
+
+ul li {
+	margin: 0 0 0 1rem;
+}
+
+dd:before,
+ul li:before {
+	content: '\00b7';
+	float: left;
+	margin: 0 0 0 -1rem;
+}
+
+/* Log */
+
+pre {
+	margin-bottom: 1.5rem;
+	color: #474742;
+	font: inherit;
+	white-space: normal;
+}
+
+pre code {
+	display: block;
+	overflow: auto;
+	padding: 0.5rem 0.7rem;
+	white-space: pre;
+	border: 0.1rem dashed #a1a19a;
+}
+
+code {
+	font: 100%/1.5 Monaco, Consolas, 'Andale Mono', monospace;
+	tab-size: 4;
+}

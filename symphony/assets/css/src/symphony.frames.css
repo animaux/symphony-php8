@@ -1,0 +1,583 @@
+/**
+ * Frames are used in different areas of the system to group content,
+ * e. g. in the section or data source editor.
+ *
+ * @since: Symphony 2.3
+ */
+
+.frame {
+	position: relative;
+	box-sizing: border-box;
+	margin: 0 0 4.5rem;
+	padding: 0;
+	list-style: none;
+	border: 0.1rem solid #c5c5c5;
+	border-radius: 0.4rem;
+	background: #f5f5f5;
+}
+
+.frame h1 {
+	margin: -1.1rem -1.1rem 1.5rem;
+	padding: 1.8rem 1.1rem;
+	color: #fff;
+	font-size: 1.5rem;
+	font-weight: normal;
+	line-height: 1.5;
+	border-radius: 0.4rem 0.4rem 0 0;
+	background: #282828;
+}
+
+.frame.empty {
+	height: 3rem;
+	border: 0.1rem dashed #b8b8b8;
+}
+
+.frame::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.frame ol,
+.frame ul {
+	margin: 0;
+	padding: 0;
+}
+
+.frame .tags {
+	margin-top: -1rem;
+	margin-bottom: 1.5rem;
+}
+
+/* Headers */
+
+.frame-header {
+	position: relative;
+	padding: 0.8rem 1rem 0.7rem;
+	color: #3d3d3d;
+	border-top: 0.1rem solid #d0d0d0;
+	border-bottom: 0.1rem solid #dcdcdc;
+}
+
+.frame:not(.collapsible) .frame-header {
+	box-shadow: 0 0.1rem 0.4rem #e5e5e5;
+}
+
+.frame .collapsed .frame-header {
+	border-bottom: 0.1rem solid #f5f5f5;
+}
+
+.frame-header h4 {
+	display: inline;
+	font-weight: bold;
+}
+
+.frame-header span {
+	margin: 0 0 0 1rem;
+	color: #a1a1a1;
+	font-weight: normal;
+}
+
+.main::before,
+.sidebar::before {
+	content: '';
+	display: block;
+	float: left;
+	width: 0.1rem;
+	height: 1rem;
+	margin: 0.3rem 0.7rem 0 0;
+	border-right: 0.3rem solid #dcdcdc;
+	border-left: 0.6rem solid #b8b8b8;
+}
+
+.sidebar::before {
+	border-right: 0.3rem solid #b8b8b8;
+	border-left: 0.6rem solid #dcdcdc;
+}
+
+.highlight .main::before {
+	border-right: 0.3rem solid #b9b9b9;
+	border-left: 0.6rem solid #747474;
+}
+
+.highlight .sidebar::before {
+	border-right: 0.3rem solid #747474;
+	border-left: 0.6rem solid #b9b9b9;
+}
+
+/* Content: light scheme */
+
+.frame .content {
+	box-sizing: border-box;
+	padding: 1rem;
+}
+
+.frame .instance:last-of-type .content {
+	border-radius: 0 0 0.4rem 0.4rem;
+}
+
+.frame .content::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.frame .content fieldset {
+	border-top-color: #d0d0d0;
+}
+
+/* Content: dark scheme */
+
+.frame.dark .content {
+	color: #fff;
+	background: #323230;
+}
+
+.frame.dark legend {
+	background: transparent;
+}
+
+.frame.dark i,
+.frame.dark ul.tags {
+	color: #6f6f6e;
+}
+
+.frame.dark fieldset {
+	border-top-color: #464644;
+}
+
+/*--------------------------------------------------------------------------
+	Inline frames (e. g. upload fields)
+--------------------------------------------------------------------------*/
+
+span.frame,
+fieldset.frame,
+.frame.inline {
+	display: block;
+	margin-bottom: 1.5rem;
+	padding: 1rem;
+}
+
+/*--------------------------------------------------------------------------
+	Login
+--------------------------------------------------------------------------*/
+
+#login .frame {
+	overflow: visible;
+	width: 28rem;
+	margin: 10rem auto;
+	padding: 1rem 1rem 1.5rem;
+	text-align: left;
+}
+
+#login fieldset {
+	padding: 0;
+}
+
+#login legend {
+	display: none;
+}
+
+#login .action-link {
+	float: left;
+	margin-top: 0.3rem;
+}
+
+#login button {
+	float: right;
+}
+
+/*--------------------------------------------------------------------------
+	Controls
+--------------------------------------------------------------------------*/
+
+.frame .destructor,
+.frame .debug {
+	position: absolute;
+	top: 0.8rem;
+	right: 1rem;
+	margin: 0;
+	color: #aeaeae;
+	font-weight: normal;
+	border-bottom: none;
+}
+
+.frame .destructor:hover,
+.frame .debug:hover,
+.frame .constructor:hover {
+	color: #494949;
+}
+
+.frame .disabled {
+	color: #adadad;
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+/* Applicators */
+
+.frame .apply {
+	position: absolute;
+	right: 0;
+	bottom: -3.5rem;
+	clear: left;
+	margin: 1rem 0 0;
+	text-align: right;
+	border-color: rgba(0, 0, 0, 0.25);
+	cursor: default;
+}
+
+.frame .apply:hover {
+	border-color: rgba(0, 0, 0, 0.4);
+}
+
+.frame .actions {
+	height: 2rem;
+	margin: 0 0 0.7rem;
+}
+
+.frame .actions input {
+	margin-top: 0;
+}
+
+.frame .actions button {
+	float: right;
+}
+
+/*-----------------------------------------------------------------------------
+	Orderables and Selectables
+-----------------------------------------------------------------------------*/
+
+.orderable .frame-header,
+.collapsible.orderable .ordering * {
+	cursor: move;
+}
+
+.frame .selected,
+.frame .ordering {
+	position: relative;
+	background-color: #668abe;
+}
+
+.frame .selected::before,
+.frame .selected::after,
+.frame .ordering::before,
+.frame .ordering::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -0.1rem;
+	width: 0.1rem;
+	height: 100%;
+	background: #4d78b4;
+	z-index: 1000;
+}
+
+.frame .selected::after,
+.frame .ordering::after {
+	left: auto;
+	right: 0;
+}
+
+.frame .ordering + .instance .frame-header {
+	border-top: 0.1rem solid #4d78b4;
+}
+
+.ordering .frame-header {
+	color: #fff;
+	border-top: 0.1rem solid #4d78b4;
+	border-bottom-color: #7093c3;
+	background: #5c83ba;
+	transition: none;
+	cursor: move;
+}
+
+.frame:not(.collapsible) .ordering .frame-header {
+	box-shadow: 0 0.1rem 0.4rem #7093c3;
+}
+
+.frame .ordering .frame-header span,
+.frame .ordering .frame-header .destructor,
+.frame .ordering .content i,
+.frame .ordering ul.tags {
+	color: #bdcbdd;
+}
+
+.frame .ordering .content,
+.frame .ordering .content legend {
+	color: #fff;
+	background: #668abe;
+}
+
+.frame.dark .ordering .content,
+.frame.dark .ordering .content legend {
+	color: #fff;
+	background: #4d78b4;
+}
+
+.frame .ordering .content input,
+.frame .ordering .content textarea {
+	border-color: #4b76b1;
+}
+
+.frame .ordering .content fieldset {
+	border-top-color: #7093c3;
+}
+
+.frame .ordering .main::before {
+	border-right: 0.3rem solid #7c9bc7;
+	border-left: 0.6rem solid #cedaea;
+}
+
+.frame .ordering .sidebar::before {
+	border-right: 0.3rem solid #cedaea;
+	border-left: 0.6rem solid #7c9bc7;
+}
+
+.frame .highlight {
+	background: #e8e8e8;
+}
+
+/*-----------------------------------------------------------------------------
+	Collapsibles
+
+	The duration of all transitions has to be set to the same time to prevent
+	a "jump" in the animation because the class `.js-animate` is removed on
+	the first `transitionend` event.
+-----------------------------------------------------------------------------*/
+
+.collapsible .instance {
+	overflow: visible;
+}
+
+.collapsible .instance.collapsed {
+	overflow: hidden;
+}
+
+.collapsible .instance,
+.collapsible input,
+.collapsible textarea,
+.collapsible select,
+.collapsible option {
+	-webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+.collapsible .frame-header {
+	cursor: pointer;
+}
+
+.collapsible .content {
+	background: #e8e8e8;
+}
+
+.collapsible legend {
+	padding-right: 0.5rem;
+	background: #e8e8e8;
+}
+
+.frame .js-animate {
+	overflow: hidden;
+	transition: max-height 0.25s linear;
+}
+
+.collapsed.js-animate,
+.destructed.js-animate {
+	transition: max-height 0.25s ease-out;
+}
+
+.collapsible .js-animate {
+	overflow: hidden;
+}
+
+.collapsible .js-animate .content {
+	transition: padding 0.25s ease-in;
+}
+
+.collapsed.js-animate .frame-header {
+	border-bottom-color: rgba(0, 0, 0, 0);
+	transition: border-color 0.25s ease-in;
+}
+
+.collapsed .content {
+	padding-top: 0;
+}
+
+/*-----------------------------------------------------------------------------
+	Duplicators
+-----------------------------------------------------------------------------*/
+
+.duplicator ol {
+	margin-top: -0.1rem;
+	border-radius: 0.4rem;
+}
+
+.frame .template {
+	display: none;
+}
+
+/*-----------------------------------------------------------------------------
+	Invalid states
+-----------------------------------------------------------------------------*/
+
+.invalid {
+	display: block;
+	box-sizing: border-box;
+	margin: 0 0 1.5rem;
+	padding: 1rem;
+	color: #fff;
+	border: 0.1rem solid #c31;
+	border-radius: 0.4rem;
+	background: #eb6347;
+}
+
+.invalid p {
+	clear: both;
+	margin: 0;
+}
+
+.invalid p,
+.invalid a {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.invalid a:hover {
+	color: #fff;
+}
+
+.invalid label {
+	margin-bottom: 1rem;
+}
+
+.invalid i {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* Errors */
+
+.conflict.collapsed .frame-header {
+	background: #fff9a2;
+}
+
+.conflict.ordering .frame-header {
+	background: none;
+}
+
+.conflict.collapsed .frame-header span,
+.conflict.collapsed .destructor {
+	color: #bd7053;
+}
+
+.conflict.collapsed .frame-header::before {
+	border-right: 0.3rem solid #e7a973;
+	border-left: 0.6rem solid #bd7053;
+}
+
+.conflict.collapsed .frame-header.sidebar::before {
+	border-right: 0.3rem solid #bd7053;
+	border-left: 0.6rem solid #e7a973;
+}
+
+/*--------------------------------------------------------------------------
+	Error messages
+--------------------------------------------------------------------------*/
+
+#error {
+	padding: 10rem 5rem;
+}
+
+#error .frame {
+	display: block;
+	overflow: hidden;
+	min-width: 50rem;
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+#error .frame::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#error h1 {
+	margin: 0;
+}
+
+#error .frame h1 em {
+	color: rgba(255, 255, 255, 0.5);
+	font-family: inherit;
+	font-style: normal;
+}
+
+#error p {
+	margin: 0;
+	padding: 1rem;
+}
+
+#error .frame pre {
+	font: 100%/1.5 Monaco, Consolas, 'Andale Mono', monospace;
+}
+
+#error .frame pre,
+#error .frame ul ul {
+	overflow: auto;
+	padding: 1rem 0;
+	background: #fefefe;
+}
+
+#error .content ul {
+	margin: 0 -1rem;
+}
+
+#error .frame ul ul li {
+	padding: 0 1rem;
+	line-height: 1.8;
+	white-space: nowrap;
+	border-top: 0.1rem solid rgba(0, 0, 0, 0.05);
+}
+
+#error .frame ul ul li.full {
+	white-space: normal;
+}
+
+#error .frame ul ul:first-of-type li:first-of-type {
+	border-top: none;
+}
+
+#error .frame .error {
+	color: #bd7053;
+	background-color: #fff9a2;
+}
+#error .frame .error b {
+	display: inline-block;
+	margin: -0.2rem 0 -0.1rem;
+	padding: 0.2rem 0 0.1rem;
+	color: #fff;
+	line-height: 1.8;
+	background: rgba(167, 31, 45, 0.7);
+}
+
+#error .frame code a {
+	margin: 0;
+}
+
+#error .frame strong,
+#error .frame em {
+	color: rgba(0, 0, 0, 0.5);
+	font: 100%/1.5 Monaco, Consolas, 'Andale Mono', monospace;
+	font-style: normal;
+}
+
+#error .frame .content {
+	padding-bottom: 0;
+	background: #fefefe;
+}
+
+#error .frame .content:last-of-type ul {
+	border-radius: 0 0 0.4rem 0.4rem;
+}
+
+#error .frame .actions {
+	padding: 1rem;
+}

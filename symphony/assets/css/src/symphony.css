@@ -1,0 +1,261 @@
+/**
+ * This file bundles basic style definitions shared across the different areas
+ * of Symphony. They are used by the installer, the front-end error messages and
+ * notifications and by the backend itself.
+ */
+
+
+/*-----------------------------------------------------------------------------
+	Reset – based on http://meyerweb.com/eric/tools/css/reset/
+-----------------------------------------------------------------------------*/
+
+html, body, div, span, applet, object, iframe,
+header, nav, section, aside, footer,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	font-size: 1em;
+	vertical-align: baseline;
+	text-decoration: none;
+	border: 0;
+	background: transparent;
+}
+input, select, textarea, button {
+	margin: 0;
+	padding: 0;
+	font-size: 1em;
+	vertical-align: baseline;
+}
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+header, nav, section, aside, footer {
+	display: block;
+}
+
+/*-----------------------------------------------------------------------------
+	Basic styles
+-----------------------------------------------------------------------------*/
+
+html {
+	font-size: 10px;
+}
+
+body {
+	color: #222;
+	font: 1.1rem/1.5 'Lucida Grande', Leelawadee, Tahoma, Verdana, sans-serif;
+	background: #fff;
+}
+
+body > div,
+body > form {
+	font-size: 1.1rem;
+}
+
+/* Headlines */
+
+h3 {
+	font-weight: bold;
+}
+
+/* Paragraphs */
+
+p {
+	margin-bottom: 1.5rem;
+}
+
+p.label {
+	position: relative;
+	margin: 0 0 0.2rem;
+}
+
+/* Links */
+
+a {
+	color: #3f69a5;
+	border-bottom: 1px solid rgba(63, 105, 165, 0.15);
+	cursor: pointer;
+}
+
+a:hover,
+.inactive a:hover {
+	color: #000;
+	border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+
+a:active, a:focus,
+.inactive a:active, .inactive a:focus {
+	color: #d42;
+	border-bottom-color: rgba(221, 68, 34, 0.3);
+}
+
+/* Lists */
+
+ul, ol {
+	margin: 0 0 1.5rem 2.5rem;
+}
+
+ul.tags {
+	margin: -0.75rem 0 1.5rem 0;
+	padding: 0;
+	color: #a2a2a2;
+	color: rgba(0, 0, 0, 0.4);
+	list-style: none;
+}
+
+ul.tags li,
+ul.tags li:first-of-type,
+ul.tags li:last-of-type {
+	display: inline;
+	float: none;
+	padding: 0 6px 0 0;
+	font-size: 90.91%;
+	border: none;
+	cursor: pointer;
+}
+
+ul.tags li:hover {
+	color: #554;
+}
+
+ul.tags li.more {
+	color: #5072bf;
+	border-bottom: 0.1rem solid rgba(63, 105, 165, 0.15);
+}
+
+ul.tags .more:hover {
+	color: #222;
+	border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Code */
+
+code,
+.code {
+	font: 100%/1.5 Monaco, Consolas, 'Andale Mono', monospace;
+	tab-size: 4;
+}
+
+pre {
+	margin-bottom: 1.5rem;
+	color: #474742;
+	font: inherit;
+	white-space: normal;
+	background: #f4f4f4;
+}
+
+pre code {
+	display: block;
+	overflow: auto;
+	padding: 0.5rem 0.7rem;
+	white-space: pre;
+	border: 0.1rem solid #d5d6d0;
+}
+
+i code {
+	font-size: 1em;
+	font-size-adjust: 0;
+}
+
+i, var {
+	color: #a9a9a9;
+	font-style: normal;
+	text-shadow: none;
+}
+
+/* Forms */
+
+fieldset {
+	position: relative;
+	padding: 1rem 0;
+}
+
+legend {
+	padding: 0;
+	color: rgba(0, 0, 0, 0.65);
+	font-weight: bold;
+	line-height: 1;
+}
+
+label {
+	display: block;
+	position: relative;
+	margin-bottom: 1.5rem;
+}
+
+label > i,
+p.label > i {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+label.inline-help > i {
+	position: relative;
+}
+
+/* States */
+
+.busy,
+.busy * {
+	cursor: wait;
+}
+
+.inactive,
+.inactive * {
+	color: #b4b4b4;
+}
+
+.inactive a {
+	border-bottom-color: rgba(180, 180, 180, 0.3);
+}
+
+.irrelevant {
+	display: none !important;
+}
+
+.selected, .selected a,
+.selected .inactive {
+	color: #fff;
+}
+
+.selected, .selected a {
+	border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.selected a:hover {
+	color: #f2f2f2;
+}
+
+.help {
+	clear: both;
+	color: #808080;
+}
+
+.centered {
+	text-align: center;
+}
+
+.accessible {
+	position: absolute;
+	top: auto;
+	left: -10000px;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+}

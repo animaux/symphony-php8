@@ -1,0 +1,129 @@
+/**
+ * Associations are visualisations of associated entries in Symphony's backend.
+ * They are hidden in Drawers by default and can be expanded on click.
+ *
+ * @since Symphony 2.3
+ */
+
+
+/*-----------------------------------------------------------------------------
+	Vertical drawers
+-----------------------------------------------------------------------------*/
+
+#drawer-section-associations .contents {
+	padding: 0.5rem 2rem;
+}
+
+#drawer-section-associations .association-title {
+	font-size: 1.4rem;
+	font-weight: 400;
+	padding: 0;
+	margin: 4rem 0 2rem;
+}
+
+#drawer-section-associations .association-title:first-child {
+	margin-top: 1.5rem; /* content has 0.5 so it's visually 2rem */
+}
+
+.association {
+	margin: 2rem 0;
+	color: #666;
+}
+
+.association.empty {
+	margin-bottom: 1rem;
+}
+
+.association.empty + .association.empty {
+	margin-top: 0;
+}
+
+.association a {
+	color: #666;
+}
+
+.association a:hover {
+	color: #323232;
+}
+
+.association header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 0;
+}
+
+.association header > p {
+	flex-grow: 1;
+	overflow: hidden;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.association header > p span {
+	opacity: 0.3;
+}
+
+.association header > a {
+	flex-shrink: 0;
+	margin-left: 1.5rem;
+	white-space: nowrap;
+}
+
+.association header i a {
+	color: rgb(169, 169, 169);
+	border-bottom: none;
+}
+
+.association header i {
+	float: right;
+	margin-left: 0.3rem;
+}
+
+.association .association-section {
+	color: #323232;
+}
+
+.association-links {
+	width: 26rem;
+	margin: 0;
+	padding: 0.2rem 0 0;
+}
+
+.association-links li {
+	display: block;
+	box-sizing: border-box;
+	white-space: nowrap;
+}
+
+.association-links a,
+.association-links a:hover {
+	display: block;
+	overflow: hidden;
+	width: 26rem;
+	line-height: 3rem;
+	text-overflow: ellipsis;
+	border-color: #e8e8e8;
+}
+
+.association-links li a::before {
+	content: '\2192 ';
+	margin-right: 0.3rem;
+}
+
+.association-links.parent li a::before {
+	content: '\2190 ';
+	margin-right: 0.3rem;
+}
+
+.association-more a {
+	color: #a9a9a9;
+}
+
+.association-more a::before {
+	content: '\00B7\00B7\00B7' !important;
+}
