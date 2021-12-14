@@ -50,7 +50,7 @@ class SectionDatasource extends Datasource
      */
     public function getSource()
     {
-        return $this->_source;
+        return $this->_source ?? false;
     }
 
     /**

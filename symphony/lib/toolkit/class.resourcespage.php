@@ -151,6 +151,8 @@ abstract class ResourcesPage extends AdministrationPage
                 $locked = null;
 
                 // Locked resources
+                $r['source']['name'] = $r['source']['name'] ?? false;
+                
                 if (
                     isset($r['can_parse']) && $r['can_parse'] !== true ||
                     ($resource_type === ResourceManager::RESOURCE_TYPE_DS && $r['source']['name'] === 'Dynamic_xml')
@@ -221,7 +223,7 @@ abstract class ResourcesPage extends AdministrationPage
                 }
 
                 // Authors
-                $author = $r['author']['name'];
+                $author = $r['author']['name'] ?? false;
 
                 if ($author) {
                     if (isset($r['author']['website'])) {
