@@ -624,6 +624,7 @@ class FieldManager implements FileResource
         $fields = Symphony::Database()->fetchCol('type', "SELECT DISTINCT `type` FROM `tbl_fields` WHERE `type` NOT IN ('author', 'checkbox', 'date', 'input', 'select', 'taglist', 'upload')");
 
         if (!empty($fields)) {
+            $table = '';
             foreach ($fields as $field) {
                 try {
                     $table = Symphony::Database()->fetchVar('count', 0, sprintf(
