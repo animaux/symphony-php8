@@ -123,7 +123,7 @@ class General
      * @param boolean $isFile (optional)
      *  if this is true, the method will attempt to read from a file, `$data`
      *  instead.
-     * @param XsltProcess $xsltProcessor (optional)
+     * @param XSLTProcess $xsltProcessor (optional)
      *  if set, the validation will be done using this XSLT processor rather
      *  than the built in XML parser. the default is null.
      * @param string $encoding (optional)
@@ -148,7 +148,7 @@ class General
 
             </xsl:stylesheet>';
 
-            $xsltProcessor->process($_data, $xsl, array());
+            $xsltProcessor->process($_data, $xsl);
 
             if ($xsltProcessor->isErrors()) {
                 $errors = $xsltProcessor->getError(true);
@@ -327,27 +327,36 @@ class General
      */
     public static function createHandle($string, $max_length = 255, $delim = '-', $uriencode = false, $additional_rule_set = null)
     {
+        // If empty, bail out quick
+        if (empty(trim($string))) {
+            return '';
+        }
+
+        $original = $string;
         $max_length = intval($max_length);
+
+        // Make sure we have utf-8 data
+        if (function_exists('mb_convert_encoding')) {
+            $string = mb_convert_encoding($string, 'utf-8');
+        }
 
         // Strip out any tag
         $string = strip_tags($string);
 
-        // Remove punctuation
-        $string = preg_replace('/[\\.\'"]+/', null, $string);
+        // Replace existing delimiters in the string with a space
+        $string = str_replace($delim, ' ', $string);
 
-        // Trim it
-        if ($max_length > 0) {
-            $string = General::limitWords($string, $max_length);
-        }
+        // Remove punctuation
+        $string = preg_replace('/[\\.\'",!?]+/u', null, $string);
+
+        // Make sure our delimiter is properly escaped
+        $quotedDelim = preg_quote($delim, '/');
+
+        // Remove weird characters (not a word character, nor a space, nor the delimiter)
+        $string = preg_replace('/([^\w\s' . $quotedDelim . ']+)/us', null, $string);
 
         // Replace spaces (tab, newline etc) with the delimiter
-        $string = preg_replace('/[\s]+/', $delim, $string);
-
-        // Find all legal characters
-        preg_match_all('/[^<>?@:!\-\/\[-`;‘’…]+/u', $string, $matches);
-
-        // Join only legal character with the $delim
-        $string = implode($delim, $matches[0]);
+        $string = preg_replace('/[\s]+/us', $delim, $string);
 
         // Allow for custom rules
         if (is_array($additional_rule_set) && !empty($additional_rule_set)) {
@@ -356,16 +365,26 @@ class General
             }
         }
 
+        // Trim it
+        if ($max_length > 0) {
+            $string = General::limitWords($string, $max_length);
+        }
+
         // Remove leading or trailing delim characters
         $string = trim($string, $delim);
+
+        // Make sure we have a result
+        if (empty($string)) {
+            $string = sha1($original);
+        }
+
+        // Make it lowercase
+        $string = strtolower($string);
 
         // Encode it for URI use
         if ($uriencode) {
             $string = urlencode($string);
         }
-
-        // Make it lowercase
-        $string = strtolower($string);
 
         return $string;
     }
@@ -563,7 +582,7 @@ class General
 
         try {
             $current_umask = umask(0);
-            $success = @mkdir($path, intval($mode, 8), true);
+            $success = mkdir($path, intval($mode, 8), true);
             umask($current_umask);
 
             return $success;
@@ -715,35 +734,44 @@ class General
     }
 
     /**
+     * Merge `$file` with `$post` to produce a flat array of the contents
+     * of both, for the key specified by $type
+     *
+     * @param string $type
+     *  The key to merge
+     * @param array $file
+     *  The file array
+     * @param array $post
+     *  The post array
+     * @return void
+     */
+    protected static function mergeFilePostData($type, array $file, array &$post)
+    {
+        foreach ($file as $key => $value) {
+            if (!isset($post[$key])) {
+                $post[$key] = array();
+            }
+
+            if (is_array($value)) {
+                static::mergeFilePostData($type, $value, $post[$key]);
+            } else {
+                $post[$key][$type] = $value;
+            }
+        }
+    }
+
+    /**
      * Merge `$_POST` with `$_FILES` to produce a flat array of the contents
-     * of both. If there is no merge_file_post_data function defined then
-     * such a function is created. This is necessary to overcome PHP's ability
-     * to handle forms. This overcomes PHP's convoluted `$_FILES` structure
+     * of both. This overcomes PHP's convoluted `$_FILES` structure
      * to make it simpler to access `multi-part/formdata`.
      *
+     * @uses mergeFilePostData()
      * @return array
      *  a flat array containing the flattened contents of both `$_POST` and
      *  `$_FILES`.
      */
     public static function getPostData()
     {
-        if (!function_exists('merge_file_post_data')) {
-            function merge_file_post_data($type, array $file, &$post)
-            {
-                foreach ($file as $key => $value) {
-                    if (!isset($post[$key])) {
-                        $post[$key] = array();
-                    }
-
-                    if (is_array($value)) {
-                        merge_file_post_data($type, $value, $post[$key]);
-                    } else {
-                        $post[$key][$type] = $value;
-                    }
-                }
-            }
-        }
-
         $files = array(
             'name'      => array(),
             'type'      => array(),
@@ -766,7 +794,7 @@ class General
         }
 
         foreach ($files as $type => $data) {
-            merge_file_post_data($type, $data, $post);
+            static::mergeFilePostData($type, $data, $post);
         }
 
         return $post;
@@ -891,6 +919,24 @@ class General
     }
 
     /**
+     * Keyed version of php's array_map function.
+     * The callback's signature is:
+     *  `function ($key, $value, $array)`
+     *
+     * @since Symphony 3.0.0
+     * @param string $function
+     * @param array $array
+     * @return array
+     *  a new array with all the values passed through the given `$function`
+     */
+    public static function array_map($function, array $array)
+    {
+        return array_map(function ($key) use ($function, $array) {
+            return $function($key, $array[$key], $array);
+        }, array_keys($array));
+    }
+
+    /**
      * Convert an array into an XML fragment and append it to an existing
      * XML element. Any arrays contained as elements in the input array will
      * also be recursively formatted and appended to the input XML fragment.
@@ -984,7 +1030,7 @@ class General
                 $perm = 0644;
             }
 
-            @chmod($file, intval($perm, 8));
+            chmod($file, intval($perm, 8));
         } catch (Exception $ex) {
             // If we can't chmod the file, this is probably because our host is
             // running PHP with a different user to that of the file. Although we
@@ -994,31 +1040,6 @@ class General
             // if your extension require this logic, it uses it's own function rather
             // than this 'General' one.
             return true;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks that the file and its folder are readable and writable.
-     *
-     * @deprecated @since Symphony 2.7.0
-     * @since Symphony 2.6.3
-     * @return boolean
-     */
-    public static function checkFile($file)
-    {
-        if (Symphony::Log()) {
-            Symphony::Log()->pushDeprecateWarningToLog('General::checkFile()', '`General::checkFileWritable()');
-        }
-        clearstatcache();
-        $dir = dirname($file);
-
-        if (
-            (!is_writable($dir) || !is_readable($dir)) // Folder
-            || (file_exists($file) && (!is_readable($file) || !is_writable($file))) // File
-        ) {
-            return false;
         }
 
         return true;
@@ -1257,7 +1278,7 @@ class General
             $files[] = rtrim(str_replace($strip_root, '', $dir), '/') ."/$file/";
 
             if ($recurse) {
-                $files = @array_merge($files, self::listDirStructure("$dir/$file", $filter, $recurse, $strip_root, $exclude, $ignore_hidden));
+                $files = array_merge($files, self::listDirStructure("$dir/$file", $filter, $recurse, $strip_root, $exclude, $ignore_hidden));
             }
         }
 
@@ -1429,9 +1450,18 @@ class General
         // Compute the negative offset
         $offset = $maxChars - $original_length;
         // Find the first word break char before the maxChars limit is hit.
-        $last_word_break = max(array_filter(array_map(function ($wb) use ($string, $offset) {
+        $word_break = array_filter(array_map(function ($wb) use ($string, $offset) {
             return strrpos($string, $wb, $offset);
-        }, array(' ', '-', ',', '.', '!', '?', PHP_EOL))));
+        }, array(' ', '-', ',', '.', '!', '?', PHP_EOL)));
+
+        // If no word break is found
+        if (empty($word_break)) {
+            $last_word_break = $maxChars;
+        } else {
+            $last_word_break = max($word_break);
+        }
+
+        // Create the sub string
         $result = substr($string, 0, $last_word_break);
 
         if ($appendHellip) {
@@ -1475,7 +1505,7 @@ class General
                 if (is_null($perm)) {
                     $perm = 0644;
                 }
-                @chmod($dest, intval($perm, 8));
+                chmod($dest, intval($perm, 8));
                 return true;
             }
         }
@@ -1565,10 +1595,6 @@ class General
      */
     public static function createXMLDateObject($timestamp, $element = 'date', $date_format = 'Y-m-d', $time_format = 'H:i', $namespace = null)
     {
-        if (!class_exists('XMLElement')) {
-            return false;
-        }
-
         if (empty($date_format)) {
             $date_format = DateTimeObj::getSetting('date_format');
         }
@@ -1621,34 +1647,6 @@ class General
     }
 
     /**
-     * Uses `SHA1` or `MD5` to create a hash based on some input
-     * This function is currently very basic, but would allow
-     * future expansion. Salting the hash comes to mind.
-     *
-     * @param string $input
-     *  the string to be hashed
-     * @param string $algorithm
-     *  This function supports 'md5', 'sha1' and 'pbkdf2'. Any
-     *  other algorithm will default to 'pbkdf2'.
-     * @return string
-     *  the hashed string
-     */
-    public static function hash($input, $algorithm = 'sha1')
-    {
-        switch ($algorithm) {
-            case 'sha1':
-                return SHA1::hash($input);
-
-            case 'md5':
-                return MD5::hash($input);
-
-            case 'pbkdf2':
-            default:
-                return Crytography::hash($input, $algorithm);
-        }
-    }
-
-    /**
      * Helper to cut down on variables' type check.
      * Currently known types are the PHP defaults.
      * Uses `is_XXX()` functions internally.
@@ -1688,10 +1686,14 @@ class General
     {
         foreach ($params as $name => $param) {
             if (isset($param['optional']) && ($param['optional'] === true)) {
-                if (is_null($param['var'])) {
+                if (empty($param['var'])) {
                     continue;
                 }
                 // if not null, check it's type
+            }
+
+            if (empty($param['type'])) {
+                $param['type'] = 'Undefined';
             }
 
             // validate the validator
