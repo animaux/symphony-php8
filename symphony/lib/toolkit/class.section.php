@@ -50,7 +50,7 @@ class Section
             return $this->_data;
         }
 
-        return $this->_data[$setting];
+        return $this->_data[$setting] ?? null;
     }
 
     /**
