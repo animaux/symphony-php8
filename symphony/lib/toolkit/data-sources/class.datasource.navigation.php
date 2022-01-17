@@ -75,7 +75,7 @@ class NavigationDatasource extends Datasource
             $type_sql = $this->__processNavigationTypeFilter($this->dsParamFILTERS['type'], Datasource::determineFilterType($this->dsParamFILTERS['type']));
         }
 
-        if (trim($this->dsParamFILTERS['parent'] ?? null) != '') {
+        if (trim($this->dsParamFILTERS['parent'] ?? '') != '') {
             $parent_sql = $this->__processNavigationParentFilter($this->dsParamFILTERS['parent']);
         }
 
