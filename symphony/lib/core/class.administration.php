@@ -133,7 +133,7 @@ class Administration extends Symphony
                         $section_handle = $default_section->get('handle');
                     }
 
-                    if (!$section_handle) {
+                    if (!isset($section_handle)) {
                         $all_sections = SectionManager::fetch();
 
                         if (!empty($all_sections)) {
