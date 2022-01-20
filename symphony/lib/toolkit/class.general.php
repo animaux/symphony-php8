@@ -1645,6 +1645,34 @@ class General
 
         return $pageinfo;
     }
+    
+    /**
+     * Uses `SHA1` or `MD5` to create a hash based on some input
+     * This function is currently very basic, but would allow
+     * future expansion. Salting the hash comes to mind.
+     *
+     * @param string $input
+     *  the string to be hashed
+     * @param string $algorithm
+     *  This function supports 'md5', 'sha1' and 'pbkdf2'. Any
+     *  other algorithm will default to 'pbkdf2'.
+     * @return string
+     *  the hashed string
+     */
+    public static function hash($input, $algorithm = 'sha1')
+    {
+        switch ($algorithm) {
+            case 'sha1':
+                return SHA1::hash($input);
+
+            case 'md5':
+                return MD5::hash($input);
+
+            case 'pbkdf2':
+            default:
+                return Crytography::hash($input, $algorithm);
+        }
+    }
 
     /**
      * Helper to cut down on variables' type check.
