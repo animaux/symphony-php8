@@ -108,7 +108,7 @@ class fieldTextarea extends Field implements ExportableField, ImportableField
 
         $div = new XMLElement('div', null, array('class' => 'two columns'));
         $div->appendChild($label);
-        $div->appendChild($this->buildFormatterSelect($this->get('formatter'), 'fields['.$this->get('sortorder').'][formatter]', __('Text Formatter')));
+        $div->appendChild($this->buildFormatterSelect(__('Text Formatter'), $this->get('formatter'), 'fields['.$this->get('sortorder').'][formatter]'));
         $wrapper->appendChild($div);
 
         // Requirements and table display

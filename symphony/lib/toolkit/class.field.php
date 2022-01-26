@@ -595,7 +595,7 @@ class Field
      * @return XMLElement
      *    An XMLElement representing a `<select>` field containing the options.
      */
-    public function buildFormatterSelect($selected = null, $name = 'fields[format]', $label_value)
+    public function buildFormatterSelect($label_value, $selected = null, $name = 'fields[format]')
     {
         $formatters = TextformatterManager::listAll();
 

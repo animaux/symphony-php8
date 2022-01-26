@@ -1655,7 +1655,7 @@ class contentBlueprintsDatasources extends ResourcesPage
      *  Returns an array with the 'data' if it is a valid URL, otherwise a string
      *  containing an error message.
      */
-    public static function __isValidURL($url, $timeout = 6, &$error)
+    public static function __isValidURL($url, &$error, $timeout = 6)
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             $error = __('Invalid URL');

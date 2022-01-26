@@ -674,11 +674,11 @@ class contentBlueprintsPages extends AdministrationPage
             if (trim($fields['type']) != '' && preg_match('/(index|404|403)/i', $fields['type'])) {
                 $types = preg_split('/\s*,\s*/', strtolower($fields['type']), -1, PREG_SPLIT_NO_EMPTY);
 
-                if (in_array('index', $types) && PageManager::hasPageTypeBeenUsed($page_id, 'index')) {
+                if (in_array('index', $types) && PageManager::hasPageTypeBeenUsed('index', $page_id)) {
                     $this->_errors['type'] = __('An index type page already exists.');
-                } elseif (in_array('404', $types) && PageManager::hasPageTypeBeenUsed($page_id, '404')) {
+                } elseif (in_array('404', $types) && PageManager::hasPageTypeBeenUsed('404', $page_id,)) {
                     $this->_errors['type'] = __('A 404 type page already exists.');
-                } elseif (in_array('403', $types) && PageManager::hasPageTypeBeenUsed($page_id, '403')) {
+                } elseif (in_array('403', $types) && PageManager::hasPageTypeBeenUsed('403', $page_id)) {
                     $this->_errors['type'] = __('A 403 type page already exists.');
                 }
             }
@@ -892,7 +892,7 @@ class contentBlueprintsPages extends AdministrationPage
                     Symphony::ExtensionManager()->notifyMembers('PageTypePreCreate', '/blueprints/pages/', array('page_id' => $page_id, 'types' => &$types));
 
                     // Assign page types:
-                    PageManager::addPageTypesToPage($page_id, $types);
+                    PageManager::addPageTypesToPage($types, $page_id);
 
                     // Find and update children:
                     if ($this->_context[0] == 'edit') {

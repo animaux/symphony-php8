@@ -265,7 +265,7 @@ abstract class SectionEvent extends Event
                 }
 
                 // Execute the event for this entry
-                if (!$this->__doit($fields, $entry, $position, $entry_id)) {
+                if (!$this->__doit($entry, $fields, $position, $entry_id)) {
                     $success = false;
                 }
 
@@ -278,7 +278,7 @@ abstract class SectionEvent extends Event
                 $entry_id = $post['id'];
             }
 
-            $success = $this->__doit($fields, $result, null, $entry_id);
+            $success = $this->__doit($result, $fields, null, $entry_id);
         }
 
         if ($success && isset($_REQUEST['redirect'])) {
@@ -308,7 +308,7 @@ abstract class SectionEvent extends Event
      * @return XMLElement
      *  The result of the Event
      */
-    public function __doit(array $fields = array(), XMLElement &$result, $position = null, $entry_id = null)
+    public function __doit(XMLElement &$result, array $fields = array(), $position = null, $entry_id = null)
     {
         $post_values = new XMLElement('post-values');
 
