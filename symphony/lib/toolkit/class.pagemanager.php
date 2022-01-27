@@ -87,7 +87,7 @@ class PageManager
      * @throws DatabaseException
      * @return boolean
      */
-    public static function addPageTypesToPage($page_id = null, array $types)
+    public static function addPageTypesToPage(array $types, $page_id = null)
     {
         if (is_null($page_id)) {
             return false;
@@ -771,7 +771,7 @@ class PageManager
      * @return boolean
      *  true if the type is used, false otherwise
      */
-    public static function hasPageTypeBeenUsed($page_id = null, $type)
+    public static function hasPageTypeBeenUsed($type, $page_id = null)
     {
         return (boolean)Symphony::Database()->fetchRow(0, sprintf(
             "SELECT
