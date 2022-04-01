@@ -158,7 +158,8 @@ class contentSystemExtensions extends AdministrationPage
 
                 // Authors
                 $tdAuthors = array();
-
+                
+                $about['author'] = $about['author'] ?? null;
                 if (!is_array($about['author'])) {
                     $about['author'] = array($about['author']);
                 }
