@@ -387,8 +387,10 @@ class FieldInput extends Field implements ExportableField, ImportableField
 
         foreach ($records as $r) {
             $data = $r->getData($this->get('id'));
+            if (!isset($data['value'])) $data['value'] = '';
             $value = General::sanitize($data['value']);
 
+						if (!isset($data['handle'])) $data['handle'] = '';
             if (!isset($groups[$this->get('element_name')][$data['handle']])) {
                 $groups[$this->get('element_name')][$data['handle']] = array(
                     'attr' => array('handle' => $data['handle'], 'value' => $value),
