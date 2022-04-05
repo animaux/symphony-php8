@@ -71,7 +71,7 @@ class NavigationDatasource extends Datasource
         $result = new XMLElement($this->dsParamROOTELEMENT);
         $type_sql = $parent_sql = null;
 
-        if (trim($this->dsParamFILTERS['type']) != '') {
+        if (trim($this->dsParamFILTERS['type'] ?? '') != '') {
             $type_sql = $this->__processNavigationTypeFilter($this->dsParamFILTERS['type'], Datasource::determineFilterType($this->dsParamFILTERS['type']));
         }
 
