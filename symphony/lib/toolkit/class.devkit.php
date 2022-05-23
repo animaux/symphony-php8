@@ -125,6 +125,7 @@ class DevKit extends HTMLPage
 
         // Add edit link:
         $item = new XMLElement('li');
+        $this->_pagedata['id'] = $this->_pagedata['id'] ?? null;
         $item->appendChild(Widget::Anchor(
             __('Edit'),
             SYMPHONY_URL . '/blueprints/pages/edit/' . $this->_pagedata['id'] . '/'

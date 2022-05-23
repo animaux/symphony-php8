@@ -98,6 +98,7 @@ class contentLogin extends HTMLPage
                 $fieldset->appendChild(new XMLElement('p', __('Enter your email address or username to be sent further instructions for logging in.')));
 
                 $label = Widget::Label(__('Email Address or Username'));
+                $_POST['email'] = $_POST['email'] ?? null;
                 $label->appendChild(Widget::Input('email', General::sanitize($_POST['email']), 'text', array('autofocus' => 'autofocus')));
 
                 if (isset($this->_email_sent) && !$this->_email_sent) {
