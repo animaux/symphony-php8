@@ -309,7 +309,9 @@ class SMTPGateway extends EmailGateway
      * @return void
      */
     public function setConfiguration($config)
-    {
+    {   
+        $this->setHeloHostname($config['helo_hostname']) = $this->setHeloHostname($config['helo_hostname']) ?? null;
+       
         $this->setHeloHostname($config['helo_hostname']);
         $this->setFrom($config['from_address'], $config['from_name']);
         $this->setHost($config['host']);
