@@ -194,6 +194,7 @@ class AuthorManager
         ));
 
         if (!is_array($records) || empty($records)) {
+            $authors[0] = $authors[0] ?? null;
             return ($return_single ? $authors[0] : $authors);
         }
 
