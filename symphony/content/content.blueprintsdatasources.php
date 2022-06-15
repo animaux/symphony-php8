@@ -1024,8 +1024,8 @@ class contentBlueprintsDatasources extends ResourcesPage
             Widget::Anchor(__('Data Sources'), SYMPHONY_URL . '/blueprints/datasources/'),
         ));
         $this->Form->setAttribute('id', 'controller');
-
-        $link = $about['author']['name'];
+                
+        $link = $about['author']['name'] ?? null;
 
         if (isset($about['author']['website'])) {
             $link = Widget::Anchor($about['author']['name'], General::validateURL($about['author']['website']));
@@ -1211,11 +1211,9 @@ class contentBlueprintsDatasources extends ResourcesPage
                 $this->_errors['page_number'] = __('Must be a valid number or parameter');
             }
 
-        // See if a Provided Datasource is saved
+            // See if a Provided Datasource is saved
         } elseif (!empty($providers)) {
             foreach ($providers as $providerClass => $provider) {
-                // https://stackoverflow.com/a/65641932/1520177
-                $providerClass = new $providerClass();
                 if ($fields['source'] == call_user_func(array($providerClass, 'getSource'))) {
                     call_user_func_array(array($providerClass, 'validate'), array(&$fields, &$this->_errors));
                     break;
