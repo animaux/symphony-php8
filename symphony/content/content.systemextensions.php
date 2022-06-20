@@ -202,14 +202,16 @@ class contentSystemExtensions extends AdministrationPage
 
         $this->Form->appendChild($table);
 
-        $version = new XMLElement('p', 'Symphony ' . Symphony::Configuration()->get('version', 'symphony'), array(
+        $version = new XMLElement('p', 'Symphony ' . Symphony::Configuration()->get('version', 'symphony') . ' (PHP ' . phpversion() . ')', array(
             'id' => 'version'
         ));
 
-        $this->Form->appendChild($version);
+        // $this->Form->appendChild($version);
 
         $tableActions = new XMLElement('div');
         $tableActions->setAttribute('class', 'actions');
+        
+        $tableActions->appendChild($version);
 
         $options = array(
             array(null, false, __('With Selected...')),

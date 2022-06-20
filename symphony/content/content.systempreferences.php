@@ -163,9 +163,10 @@ class contentSystemPreferences extends AdministrationPage
         $div = new XMLElement('div');
         $div->setAttribute('class', 'actions');
 
-        $version = new XMLElement('p', 'Symphony ' . Symphony::Configuration()->get('version', 'symphony'), array(
+        $version = new XMLElement('p', 'Symphony ' . Symphony::Configuration()->get('version', 'symphony') . ' (PHP ' . phpversion() . ')', array(
             'id' => 'version'
         ));
+        
         $div->appendChild($version);
 
         $attr = array('accesskey' => 's');
