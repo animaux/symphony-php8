@@ -672,6 +672,7 @@ class contentBlueprintsSections extends AdministrationPage
                     $name_list = array();
 
                     foreach ($fields as $position => $data) {
+                        $data['element_name'] = $data['element_name'] ?? null;
                         if (trim($data['element_name']) == '') {
                             $data['element_name'] = $fields[$position]['element_name'] = $_POST['fields'][$position]['element_name'] = Lang::createHandle($data['label'], 255, '-', false, true, array('@^[\d-]+@i' => ''));
                         }
