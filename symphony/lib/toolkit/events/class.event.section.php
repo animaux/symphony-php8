@@ -637,17 +637,17 @@ abstract class SectionEvent extends Event
      */
     public function processSendMailFilter(XMLElement $result, array $send_email, array &$fields, Section $section, Entry $entry)
     {
-        $fields['recipient']        = self::replaceFieldToken($send_email['recipient'], $fields);
-        $fields['recipient']        = preg_split('/\,/i', $fields['recipient'], -1, PREG_SPLIT_NO_EMPTY);
-        $fields['recipient']        = array_map('trim', $fields['recipient']);
+        $fields['recipient']        = self::replaceFieldToken($send_email['recipient'] ?? null, $fields);
+        $fields['recipient']        = preg_split('/\,/i', $fields['recipient'] ?? null, -1, PREG_SPLIT_NO_EMPTY);
+        $fields['recipient']        = array_map('trim', $fields['recipient'] ?? null);
 
-        $fields['subject']          = self::replaceFieldToken($send_email['subject'], $fields, __('[Symphony] A new entry was created on %s', array(Symphony::Configuration()->get('sitename', 'general'))));
-        $fields['body']             = self::replaceFieldToken($send_email['body'], $fields, null, false, false);
-        $fields['sender-email']     = self::replaceFieldToken($send_email['sender-email'], $fields);
-        $fields['sender-name']      = self::replaceFieldToken($send_email['sender-name'], $fields);
+        $fields['subject']          = self::replaceFieldToken($send_email['subject'] ?? null, $fields, __('[Symphony] A new entry was created on %s', array(Symphony::Configuration()->get('sitename', 'general'))));
+        $fields['body']             = self::replaceFieldToken($send_email['body'] ?? null, $fields, null, false, false);
+        $fields['sender-email']     = self::replaceFieldToken($send_email['sender-email'] ?? null, $fields);
+        $fields['sender-name']      = self::replaceFieldToken($send_email['sender-name'] ?? null, $fields);
 
-        $fields['reply-to-name']    = self::replaceFieldToken($send_email['reply-to-name'], $fields);
-        $fields['reply-to-email']   = self::replaceFieldToken($send_email['reply-to-email'], $fields);
+        $fields['reply-to-name']    = self::replaceFieldToken($send_email['reply-to-name'] ?? null, $fields);
+        $fields['reply-to-email']   = self::replaceFieldToken($send_email['reply-to-email'] ?? null, $fields);
 
         $edit_link = SYMPHONY_URL . '/publish/' . $section->get('handle') . '/edit/' . $entry->get('id').'/';
         $language = Symphony::Configuration()->get('lang', 'symphony');
