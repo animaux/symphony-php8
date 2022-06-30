@@ -503,6 +503,7 @@ class SectionDatasource extends Datasource
         ));
 
         if ($this->_force_empty_result == true) {
+            $this->dsParamREDIRECTONREQUIRED = $this->dsParamREDIRECTONREQUIRED ?? false;
             if ($this->dsParamREDIRECTONREQUIRED === 'yes') {
                 throw new FrontendPageNotFoundException;
             }
