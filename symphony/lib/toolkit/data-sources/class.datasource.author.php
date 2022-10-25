@@ -34,7 +34,7 @@ class AuthorDatasource extends Datasource
     {
         $author_ids = array();
 
-        if (is_array($this->dsParamFILTERS) && !empty($this->dsParamFILTERS)) {
+        if (is_array($this->dsParamFILTERS ?? null) && !empty($this->dsParamFILTERS ?? null)) {
             foreach ($this->dsParamFILTERS as $field => $value) {
                 if (!is_array($value) && trim($value) == '') {
                     continue;
