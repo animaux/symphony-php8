@@ -152,7 +152,9 @@ class Cookie
      */
     public function set($name, $value)
     {
-        $_SESSION[$this->_index][$name] = $value;
+        if (is_array($_SESSION[$this->_index])) {
+					$_SESSION[$this->_index][$name] = $value;
+        }
     }
 
     /**
