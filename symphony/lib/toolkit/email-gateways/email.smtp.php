@@ -311,6 +311,14 @@ class SMTPGateway extends EmailGateway
     public function setConfiguration($config)
     {   
         $config['helo_hostname'] = $config['helo_hostname'] ?? null;
+        $config['from_address'] = $config['from_address'] ?? null;
+        $config['from_name'] = $config['from_name'] ?? null;
+        $config['host'] = $config['host'] ?? null;
+        $config['port'] = $config['port'] ?? null;
+        $config['secure'] = $config['secure'] ?? null;
+        $config['auth'] = $config['auth'] ?? null;
+        $config['username'] = $config['username'] ?? null;
+        $config['password'] = $config['password'] ?? null;
        
         $this->setHeloHostname($config['helo_hostname']);
         $this->setFrom($config['from_address'], $config['from_name']);
