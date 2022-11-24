@@ -93,7 +93,10 @@ class SectionDatasource extends Datasource
     public function processRecordGroup($element, array $group)
     {
         $xGroup = new XMLElement($element, null, $group['attr']);
-
+        
+        $group['records'] = $group['records'] ?? null;
+        $group['groups'] = $group['groups'] ?? null;
+        
         if (is_array($group['records']) && !empty($group['records'])) {
             if (isset($group['records'][0])) {
                 $data = $group['records'][0]->getData();
