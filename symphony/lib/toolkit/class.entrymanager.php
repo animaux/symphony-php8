@@ -739,7 +739,7 @@ class EntryManager
 
             return $entries;
         } else {
-            $start = (max(1, $page) - 1) * $entriesPerPage;
+            $start = (max(1, (int) $page) - 1) * $entriesPerPage;
 
             $records = ($entriesPerPage == '0' ? null : self::fetch(null, $section_id, $entriesPerPage, $start, $where, $joins, $group, $buildentries, $element_names));
 
@@ -756,7 +756,7 @@ class EntryManager
 
             $entries['remaining-entries'] = max(0, $entries['total-entries'] - ($start + $entriesPerPage));
             $entries['total-pages'] = max(1, ceil($entries['total-entries'] * (1 / $entriesPerPage)));
-            $entries['remaining-pages'] = max(0, $entries['total-pages'] - $page);
+            $entries['remaining-pages'] = max(0, $entries['total-pages'] - (int) $page);
 
             return $entries;
         }
