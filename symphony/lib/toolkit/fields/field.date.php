@@ -782,7 +782,8 @@ class FieldDate extends Field implements ExportableField, ImportableField
 
         foreach ($records as $r) {
             $data = $r->getData($this->get('id'));
-
+              
+            $data['value'] = $data['value'] ?? false;
             $timestamp = DateTimeObj::get('U', $data['value']);
             $info = getdate($timestamp);
 

@@ -252,6 +252,7 @@ class contentSystemAuthors extends AdministrationPage
         if (isset($_POST['fields'])) {
             $author = $this->_Author;
         } elseif ($this->_context[0] == 'edit') {
+            $this->_context[1] = $this->_context[1] ?? null;
             if (!$author_id = (int)$this->_context[1]) {
                 redirect(SYMPHONY_URL . '/system/authors/');
             }
