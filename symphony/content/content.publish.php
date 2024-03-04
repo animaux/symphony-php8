@@ -1425,7 +1425,7 @@ class contentPublish extends AdministrationPage
             $section = SectionManager::fetch($entry->get('section_id'));
 
             $post = General::getPostData();
-            $fields = $post['fields'];
+            $fields = $post['fields'] ?? [];
 
             // $canProceed = $this->validateTimestamp($entry_id, true);
             $canProceed = true;
