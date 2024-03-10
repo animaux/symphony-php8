@@ -374,6 +374,7 @@ abstract class Symphony implements Singleton
             self::Database()->setPrefix($details['tbl_prefix']);
             self::Database()->setCharacterEncoding();
             self::Database()->setCharacterSet();
+            self::Database()->setSQLMode();
             self::Database()->setTimeZone(self::Configuration()->get('timezone', 'region'));
 
             if (isset($details['query_caching'])) {

@@ -403,8 +403,21 @@ class MySQL
      */
     public function setCharacterSet($set = 'utf8')
     {
-        $this->query("SET character_set_connection = '$set', character_set_database = '$set', character_set_server = '$set'");
+        $this->query("SET character_set_connection = '$set', character_set_server = '$set'");
         $this->query("SET CHARACTER SET '$set'");
+    }
+
+    /**
+     * This function will set the SQL mode of the database so that Symphony
+     * is able to run on never versions of MySQL which have set
+     * ONLY_FULL_GROUP_BY by default
+     *
+     * @link https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html
+     * @throws DatabaseException
+     */
+    public function setSQLMode()
+    {
+        $this->query("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
     }
 
     /**
