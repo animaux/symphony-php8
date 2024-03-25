@@ -754,7 +754,9 @@ class contentSystemAuthors extends AdministrationPage
             } else {
                 $this->_Author->set('default_area', $fields['default_area']);
             }
-
+            
+            $fields['auth_token_active'] = $fields['auth_token_active'] ?? null;
+            
             $this->_Author->set('auth_token_active', ($fields['auth_token_active'] ? $fields['auth_token_active'] : 'no'));
 
             /**
