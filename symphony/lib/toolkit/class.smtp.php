@@ -91,7 +91,10 @@ class SMTP
         if ($port === null) {
             $port = 25;
         }
-
+        
+        $options['username'] = $options['username'] ?? null;
+        $options['password'] = $options['password'] ?? null;
+        
         if (($options['username'] !== null) && ($options['password'] !== null)) {
             $this->_user = $options['username'];
             $this->_pass = $options['password'];
